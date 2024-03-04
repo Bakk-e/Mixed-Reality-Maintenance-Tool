@@ -3803,10 +3803,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1555970009}
-  settings: {fileID: 71090269}
+  repairMenu: {fileID: 1825201907}
+  settingsMenu: {fileID: 71090269}
   repairButton: {fileID: 57450046}
   settingsButton: {fileID: 598457390}
   quitButton: {fileID: 2138328377}
+  returnButtons: []
 --- !u!1 &675440632
 GameObject:
   m_ObjectHideFlags: 0
