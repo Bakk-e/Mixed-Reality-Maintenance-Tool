@@ -11,14 +11,15 @@ public class UIScript : MonoBehaviour
 {
     [Header("UI Pages")]
     public GameObject mainMenu;
-    public GameObject settings;
+    public GameObject repairMenu;
+    public GameObject settingsMenu;
 
     [Header("Main Menu Buttons")]
     public Button repairButton;
     public Button settingsButton;
     public Button quitButton;
 
-    //public List<Button> returnButtons;
+    public List<Button> returnButtons;
 
     
     void Start()
@@ -28,6 +29,11 @@ public class UIScript : MonoBehaviour
         repairButton.onClick.AddListener(Repair);
         settingsButton.onClick.AddListener(EnableSettings);
         quitButton.onClick.AddListener(Quit);
+
+        foreach (var item in returnButtons)
+        {
+            item.onClick.AddListener(EnableMainMenu);
+        }
     }
 
     public void Quit() 
@@ -41,18 +47,22 @@ public class UIScript : MonoBehaviour
 
     public void Repair() 
     {
-        //Add code to switch to new menu with list of repairs
+        mainMenu.SetActive(false);
+        repairMenu.SetActive(true);
+        settingsMenu.SetActive(false);
     }
 
     public void EnableMainMenu()
     {
         mainMenu.SetActive(true);
-        settings.SetActive(false);
+        repairMenu.SetActive(false);
+        settingsMenu.SetActive(false);
     }
 
     public void EnableSettings()
     {
         mainMenu.SetActive(false);
-        settings.SetActive(true);
+        repairMenu.SetActive(false);
+        settingsMenu.SetActive(true);
     }
 }
