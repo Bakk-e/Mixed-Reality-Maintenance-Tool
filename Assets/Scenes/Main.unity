@@ -1507,7 +1507,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollViewContent: {fileID: 255251298}
   prefab: {fileID: 9195835165456576156, guid: 91fc8926268c0af40bb9b03089a1ebf9, type: 3}
-  buttons: 6
+  buttonTitles:
+  - Test 1
+  - Test 2
+  - Test 3
+  - Test 4
+  - Test 5
+  - Test 6
 --- !u!114 &255251300
 MonoBehaviour:
   m_ObjectHideFlags: 0
