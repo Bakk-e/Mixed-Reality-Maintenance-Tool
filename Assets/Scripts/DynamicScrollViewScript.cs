@@ -15,7 +15,7 @@ public class DynamicScrollViewScript : MonoBehaviour
     private GameObject prefab;
 
     [SerializeField]
-    private int buttons;
+    private List<string> buttonTitles;
 
     void Start()
     {
@@ -24,13 +24,11 @@ public class DynamicScrollViewScript : MonoBehaviour
 
     private void createButtons()
     {
-        for (int i = 0; i < buttons; i++)
-        {
+        foreach (string title in buttonTitles) {
             GameObject newButton = Instantiate(prefab, scrollViewContent);
-            newButton.name = "Button " + (i + 1);
+            newButton.name = title;
             if (newButton.TryGetComponent<ScrollViewItemScript>(out ScrollViewItemScript item)) {
-
-                item.ChangeText("" + (i + 1));
+                item.ChangeText(title);
             }
         }
     }
