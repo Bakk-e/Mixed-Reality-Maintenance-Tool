@@ -13,6 +13,7 @@ public class UIScript : MonoBehaviour
     public GameObject mainMenu;
     public GameObject repairMenu;
     public GameObject settingsMenu;
+    public GameObject repairsScreen;
 
     [Header("Main Menu Buttons")]
     public Button repairButton;
@@ -50,6 +51,7 @@ public class UIScript : MonoBehaviour
         mainMenu.SetActive(false);
         repairMenu.SetActive(true);
         settingsMenu.SetActive(false);
+        repairsScreen.SetActive(false);
     }
 
     public void EnableMainMenu()
@@ -57,6 +59,7 @@ public class UIScript : MonoBehaviour
         mainMenu.SetActive(true);
         repairMenu.SetActive(false);
         settingsMenu.SetActive(false);
+        repairsScreen.SetActive(false);
     }
 
     public void EnableSettings()
@@ -64,5 +67,6 @@ public class UIScript : MonoBehaviour
         mainMenu.SetActive(false);
         repairMenu.SetActive(false);
         settingsMenu.SetActive(true);
+        repairsScreen.SetActive(false);
     }
 }

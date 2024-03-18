@@ -8,29 +8,61 @@ using UnityEngine.UI;
 
 public class DynamicScrollViewScript : MonoBehaviour
 {
-    [SerializeField]
-    private Transform scrollViewContent;
+    [Header("Transform")]
+    public Transform scrollViewContent;
 
-    [SerializeField]
-    private GameObject prefab;
+    [Header("Button")]
+    public GameObject prefab;
 
-    [SerializeField]
-    private List<string> buttonTitles;
+    [Header("UI Pages")]
+    public GameObject repairMenu;
+    public GameObject repairsScreen;
+    public List<GameObject> repairs;
+
+    [Header("Buttons")]
+    public List<Button> returnButtons;
+
 
     void Start()
     {
-        createButtons();
+        CreateButtons();
+
+        foreach (var item in returnButtons) 
+        {
+            item.onClick.AddListener(EnableRepairMenu);
+        }
     }
 
-    private void createButtons()
+    private void CreateButtons()
     {
-        foreach (string title in buttonTitles) {
-            GameObject newButton = Instantiate(prefab, scrollViewContent);
-            newButton.name = title;
+        foreach (GameObject repair in repairs) 
+        {
+            repair.SetActive(false);
+            GameObject newButtonObj = Instantiate(prefab, scrollViewContent);
+            Button newButton = newButtonObj.GetComponent<Button>();
+            newButton.name = repair.name;
             if (newButton.TryGetComponent<ScrollViewItemScript>(out ScrollViewItemScript item)) {
-                item.ChangeText(title);
+                item.ChangeText(repair.name);
             }
+            newButton.onClick.AddListener(() => EnableRepair(repair));
         }
+    }
+
+    private void EnableRepairMenu() 
+    {
+        foreach (GameObject repair in repairs)
+        {
+            repair.SetActive(false);
+        }
+        repairMenu.SetActive(true);
+        repairsScreen.SetActive(false);
+    }
+
+    private void EnableRepair(GameObject repair) 
+    {
+        repairMenu.SetActive(false);
+        repairsScreen.SetActive(true);
+        repair.SetActive(true);
     }
 
     // #if UNITY_EDITOR
