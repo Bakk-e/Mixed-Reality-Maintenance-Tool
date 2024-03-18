@@ -40,9 +40,10 @@ public class DynamicScrollViewScript : MonoBehaviour
             repair.SetActive(false);
             GameObject newButtonObj = Instantiate(prefab, scrollViewContent);
             Button newButton = newButtonObj.GetComponent<Button>();
-            newButton.name = repair.name;
+            string repairTitle = repair.name;
+            newButton.name = repairTitle;
             if (newButton.TryGetComponent<ScrollViewItemScript>(out ScrollViewItemScript item)) {
-                item.ChangeText(repair.name);
+                item.ChangeText(repairTitle);
             }
             newButton.onClick.AddListener(() => EnableRepair(repair));
         }
@@ -68,7 +69,7 @@ public class DynamicScrollViewScript : MonoBehaviour
     // #if UNITY_EDITOR
     //     private void OnValidate() 
     //     {
-    //         createButtons();
+    //         CreateButtons();
     //     }
     // #endif
 }
