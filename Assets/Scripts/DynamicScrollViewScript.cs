@@ -11,8 +11,8 @@ public class DynamicScrollViewScript : MonoBehaviour
     [Header("Transform")]
     public Transform scrollViewContent;
 
-    [Header("Button")]
-    public GameObject prefab;
+    [Header("Prefabs")]
+    public GameObject buttonPrefab;
 
     [Header("UI Pages")]
     public GameObject repairMenu;
@@ -35,17 +35,19 @@ public class DynamicScrollViewScript : MonoBehaviour
 
     private void CreateButtons()
     {
-        foreach (GameObject repair in repairs) 
+        for (int index = 0; index < repairs.Count; index++) 
         {
-            repair.SetActive(false);
-            GameObject newButtonObj = Instantiate(prefab, scrollViewContent);
+            GameObject localRepair = repairs[index];
+            int localIndex = index;
+            localRepair.SetActive(false);
+            GameObject newButtonObj = Instantiate(buttonPrefab, scrollViewContent);
             Button newButton = newButtonObj.GetComponent<Button>();
-            string repairTitle = repair.name;
+            string repairTitle = localRepair.name;
             newButton.name = repairTitle;
             if (newButton.TryGetComponent<ScrollViewItemScript>(out ScrollViewItemScript item)) {
                 item.ChangeText(repairTitle);
             }
-            newButton.onClick.AddListener(() => EnableRepair(repair));
+            newButton.onClick.AddListener(() => EnableRepair(localIndex));
         }
     }
 
@@ -59,11 +61,11 @@ public class DynamicScrollViewScript : MonoBehaviour
         repairsScreen.SetActive(false);
     }
 
-    private void EnableRepair(GameObject repair) 
+    private void EnableRepair(int currentIndex) 
     {
         repairMenu.SetActive(false);
         repairsScreen.SetActive(true);
-        repair.SetActive(true);
+        repairs[currentIndex].SetActive(true);
     }
 
     // #if UNITY_EDITOR
