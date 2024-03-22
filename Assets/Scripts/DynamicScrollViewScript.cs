@@ -56,6 +56,7 @@ public class DynamicScrollViewScript : MonoBehaviour
         foreach (GameObject repair in repairs)
         {
             repair.SetActive(false);
+            repair.transform.GetChild(0).gameObject.SetActive(false);
         }
         repairMenu.SetActive(true);
         repairsScreen.SetActive(false);
@@ -66,6 +67,7 @@ public class DynamicScrollViewScript : MonoBehaviour
         repairMenu.SetActive(false);
         repairsScreen.SetActive(true);
         repairs[currentIndex].SetActive(true);
+        repairs[currentIndex].transform.GetChild(0).gameObject.SetActive(true);
     }
 
     // #if UNITY_EDITOR
