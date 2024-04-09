@@ -11,6 +11,7 @@ public class NavigationRepairScript : MonoBehaviour
     public GameObject buttonPrefab;
 
     [Header("Repair Pages")]
+    public GameObject RepairMenu;
     public GameObject infoScreen;
     public GameObject stepLayout;
     public List<GameObject> steps;
@@ -20,6 +21,7 @@ public class NavigationRepairScript : MonoBehaviour
     public Button previousStep;
     public Button nextStep;
     public Button exit;
+    public Button back;
 
     private List<Button> stepButtons = new List<Button>();
     private RectTransform contentPanel;
@@ -32,6 +34,7 @@ public class NavigationRepairScript : MonoBehaviour
         CreateButtons();
         startRepair.onClick.AddListener(StartButton);
         exit.onClick.AddListener(Exit);
+        back.onClick.AddListener(Back);
         UpdateButtonStates(0);
         //CenterOnButton(stepButtons[0].gameObject);
     }
@@ -51,6 +54,13 @@ public class NavigationRepairScript : MonoBehaviour
         {
             step.SetActive(false);
         }
+    }
+
+    void Back()
+    {
+        RepairMenu.SetActive(true);   
+        infoScreen.SetActive(false);
+      
     }
 
     void Previous()
