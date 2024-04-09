@@ -2427,7 +2427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &236063703
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3686,6 +3686,7 @@ MonoBehaviour:
   scrollRect: {fileID: 1539568068}
   buttonPrefab: {fileID: 6590268160415237569, guid: 22a8f3163261cdf4898ce1887c2a48a7,
     type: 3}
+  RepairMenu: {fileID: 1825201907}
   infoScreen: {fileID: 1942192895}
   stepLayout: {fileID: 1062614571}
   steps:
@@ -3695,7 +3696,8 @@ MonoBehaviour:
   startRepair: {fileID: 1942192894}
   previousStep: {fileID: 1127974992}
   nextStep: {fileID: 1251916325}
-  exit: {fileID: 2137856032}
+  exit: {fileID: 271661201}
+  back: {fileID: 2137856032}
 --- !u!1 &360464152
 GameObject:
   m_ObjectHideFlags: 0
@@ -5249,7 +5251,7 @@ PrefabInstance:
     - target: {fileID: 4945824692129700591, guid: c2ae79267380d19459e2574cffc3f384,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5540746305713141988, guid: c2ae79267380d19459e2574cffc3f384,
         type: 3}
@@ -8133,6 +8135,7 @@ MonoBehaviour:
   scrollRect: {fileID: 903708523}
   buttonPrefab: {fileID: 6590268160415237569, guid: 22a8f3163261cdf4898ce1887c2a48a7,
     type: 3}
+  RepairMenu: {fileID: 1825201907}
   infoScreen: {fileID: 495086967}
   stepLayout: {fileID: 1277578368}
   steps:
@@ -8147,7 +8150,8 @@ MonoBehaviour:
   startRepair: {fileID: 495086966}
   previousStep: {fileID: 1249477115}
   nextStep: {fileID: 1944724731}
-  exit: {fileID: 1278326211}
+  exit: {fileID: 1280516996}
+  back: {fileID: 1278326211}
 --- !u!1 &781483934
 GameObject:
   m_ObjectHideFlags: 0
@@ -9701,6 +9705,7 @@ MonoBehaviour:
   scrollRect: {fileID: 703839840}
   buttonPrefab: {fileID: 6590268160415237569, guid: 22a8f3163261cdf4898ce1887c2a48a7,
     type: 3}
+  RepairMenu: {fileID: 1825201907}
   infoScreen: {fileID: 530455184715157185}
   stepLayout: {fileID: 1285115593}
   steps:
@@ -9713,7 +9718,8 @@ MonoBehaviour:
   startRepair: {fileID: 530455184715157184}
   previousStep: {fileID: 1527855083}
   nextStep: {fileID: 1507026575}
-  exit: {fileID: 322377997}
+  exit: {fileID: 737226016}
+  back: {fileID: 322377997}
 --- !u!1 &972045179
 GameObject:
   m_ObjectHideFlags: 0
@@ -17205,7 +17211,7 @@ PrefabInstance:
     - target: {fileID: 4945824692129700591, guid: c2ae79267380d19459e2574cffc3f384,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5540746305713141988, guid: c2ae79267380d19459e2574cffc3f384,
         type: 3}
@@ -17779,7 +17785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1999985469
 RectTransform:
   m_ObjectHideFlags: 0
