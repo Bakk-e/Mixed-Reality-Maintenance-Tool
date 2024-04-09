@@ -23,8 +23,12 @@ public class NavigationRepairScript : MonoBehaviour
     public Button exit;
     public Button back;
 
+    [Header("Other")]
+    public List<GameObject> stepArrows;
+
     private List<Button> stepButtons = new List<Button>();
     private RectTransform contentPanel;
+    private int stepAmount = 0;
 
 
     void Start()
@@ -35,18 +39,22 @@ public class NavigationRepairScript : MonoBehaviour
         startRepair.onClick.AddListener(StartButton);
         exit.onClick.AddListener(Exit);
         back.onClick.AddListener(Back);
+        previousStep.onClick.AddListener(() => Previous());
+        nextStep.onClick.AddListener(() => Next());
         UpdateButtonStates(0);
+        previousStep.interactable = false;
         //CenterOnButton(stepButtons[0].gameObject);
     }
 
-    void StartButton()
+    public void StartButton()
     {
         infoScreen.SetActive(false);
         stepLayout.SetActive(true);
         steps[0].SetActive(true);
+        // stepArrows[0].SetActive(true);
     }
 
-    void Exit()
+    public void Exit()
     {
         infoScreen.SetActive(true);
         stepLayout.SetActive(false);
@@ -56,22 +64,58 @@ public class NavigationRepairScript : MonoBehaviour
         }
     }
 
-    void Back()
+    public void Back()
     {
         RepairMenu.SetActive(true);   
         infoScreen.SetActive(false);
         this.gameObject.SetActive(false);
     }
 
-    void Previous()
+    public void Previous()
     {
+        if (stepAmount <= -1) 
+        {
+            previousStep.interactable = false;
+            return;
+        }
+        if (stepAmount - 1 == 0) 
+        {
+            previousStep.interactable = false;
+        }
+        if (stepAmount > 0) 
+        {
+            stepAmount -= 1;
+        }
+        OnStepSelected(stepAmount);
+        if (!nextStep.interactable) 
+        {
+            nextStep.interactable = true;
+        }
     }
 
-    void Next()
+    public void Next()
     {
+        if (stepAmount >= steps.Count - 1)
+        {
+            nextStep.interactable = false;
+            return;
+        }
+
+        Debug.Log($"Before incrementing, stepAmount is: {stepAmount}");
+        stepAmount++;
+        Debug.Log($"After incrementing, stepAmount is: {stepAmount}");
+
+        OnStepSelected(stepAmount);
+
+        previousStep.interactable = true;
+
+        if (stepAmount == steps.Count - 1)
+        {
+            nextStep.interactable = false;
+        }
     }
 
-    void CreateButtons()
+    public void CreateButtons()
     {
         for (int index = 0; index < steps.Count; index++)
         {
@@ -89,7 +133,7 @@ public class NavigationRepairScript : MonoBehaviour
         }
     }
 
-    void OnStepSelected(int stepIndex)
+    public void OnStepSelected(int stepIndex)
     {
         UpdateButtonStates(stepIndex);
         //CenterOnButton(stepButtons[stepIndex].gameObject);
@@ -97,10 +141,16 @@ public class NavigationRepairScript : MonoBehaviour
         {
             step.SetActive(false);
         }
+        // foreach (var arrow in stepArrows)
+        // {
+        //     arrow.SetActive(false);
+        // }
         steps[stepIndex].SetActive(true);
+        // stepArrows[stepIndex].SetActive(true);
+        stepAmount = stepIndex;
     }
 
-    void UpdateButtonStates(int currentStepIndex)
+    public void UpdateButtonStates(int currentStepIndex)
     {
         for (int i = 0; i < stepButtons.Count; i++)
         {
@@ -108,7 +158,7 @@ public class NavigationRepairScript : MonoBehaviour
         }
     }
 
-    void CenterOnButton(GameObject button)
+    public void CenterOnButton(GameObject button)
     {
         Canvas.ForceUpdateCanvases();
 
