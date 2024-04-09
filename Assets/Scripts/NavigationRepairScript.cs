@@ -60,7 +60,7 @@ public class NavigationRepairScript : MonoBehaviour
     {
         RepairMenu.SetActive(true);   
         infoScreen.SetActive(false);
-      
+        this.gameObject.SetActive(false);
     }
 
     void Previous()
