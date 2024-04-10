@@ -2,10 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// #if UNITY_EDITOR
+// using UnityEditor;
+// #endif
+
 public class NavigationRepairScript : MonoBehaviour
 {
-    [Header("ScrollRect")]
-    public ScrollRect scrollRect;
+    [Header("Transform")]
+    public Transform scrollViewContent;
 
     [Header("Prefabs")]
     public GameObject buttonPrefab;
@@ -27,23 +31,20 @@ public class NavigationRepairScript : MonoBehaviour
     public List<GameObject> stepArrows;
 
     private List<Button> stepButtons = new List<Button>();
-    private RectTransform contentPanel;
     private int stepAmount = 0;
 
 
     void Start()
     {
-        contentPanel = scrollRect.content;
         stepLayout.SetActive(false);
         CreateButtons();
         startRepair.onClick.AddListener(StartButton);
         exit.onClick.AddListener(Exit);
-        back.onClick.AddListener(Back);
-        previousStep.onClick.AddListener(() => Previous());
-        nextStep.onClick.AddListener(() => Next());
+        //back.onClick.AddListener(Back);
+        previousStep.onClick.AddListener(Previous);
+        nextStep.onClick.AddListener(Next);
         UpdateButtonStates(0);
         previousStep.interactable = false;
-        //CenterOnButton(stepButtons[0].gameObject);
     }
 
     public void StartButton()
@@ -121,7 +122,7 @@ public class NavigationRepairScript : MonoBehaviour
         {
             int localIndex = index;
             steps[index].SetActive(false);
-            GameObject newButtonObj = Instantiate(buttonPrefab, contentPanel);
+            GameObject newButtonObj = Instantiate(buttonPrefab, scrollViewContent);
             Button newButton = newButtonObj.GetComponent<Button>();
             string stepNum = $"{index + 1}";
             newButton.name = stepNum;
@@ -136,7 +137,6 @@ public class NavigationRepairScript : MonoBehaviour
     public void OnStepSelected(int stepIndex)
     {
         UpdateButtonStates(stepIndex);
-        //CenterOnButton(stepButtons[stepIndex].gameObject);
         foreach (var step in steps)
         {
             step.SetActive(false);
@@ -158,15 +158,10 @@ public class NavigationRepairScript : MonoBehaviour
         }
     }
 
-    public void CenterOnButton(GameObject button)
-    {
-        Canvas.ForceUpdateCanvases();
-
-        Vector2 viewportLocalPosition = scrollRect.viewport.localPosition;
-        Vector2 buttonLocalPosition = button.transform.localPosition;
-
-        float difference = viewportLocalPosition.x - buttonLocalPosition.x;
-
-        contentPanel.localPosition = new Vector2(contentPanel.localPosition.x + difference, contentPanel.localPosition.y);
-    }
+    // #if UNITY_EDITOR
+    //     private void OnValidate() 
+    //     {
+    //         CreateButtons();
+    //     }
+    // #endif
 }
