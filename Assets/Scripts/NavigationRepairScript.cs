@@ -135,6 +135,16 @@ public class NavigationRepairScript : MonoBehaviour
 
     public void OnStepSelected(int stepIndex)
     {
+        if (steps[stepAmount] != null)
+        {
+            RepairStepScript currentStepScript = steps[stepAmount].GetComponent<RepairStepScript>();
+            if (currentStepScript != null)
+            {
+                currentStepScript.End();
+            }
+        }
+
+
         UpdateButtonStates(stepIndex);
         //CenterOnButton(stepButtons[stepIndex].gameObject);
         foreach (var step in steps)
@@ -146,8 +156,16 @@ public class NavigationRepairScript : MonoBehaviour
         //     arrow.SetActive(false);
         // }
         steps[stepIndex].SetActive(true);
+
         // stepArrows[stepIndex].SetActive(true);
         stepAmount = stepIndex;
+
+
+        RepairStepScript newStepScript = steps[stepIndex].GetComponent<RepairStepScript>();
+        if (newStepScript != null)
+        {
+            newStepScript.Start();
+        }
     }
 
     public void UpdateButtonStates(int currentStepIndex)
