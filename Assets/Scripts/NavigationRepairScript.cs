@@ -18,17 +18,12 @@ public class NavigationRepairScript : MonoBehaviour
 
     [Header("Buttons")]
     public Button startRepair;
-    public Button previousStep;
-    public Button nextStep;
     public Button exit;
     public Button back;
 
-    [Header("Other")]
-    public List<GameObject> stepArrows;
 
     private List<Button> stepButtons = new List<Button>();
     private RectTransform contentPanel;
-    private int stepAmount = 0;
 
 
     void Start()
@@ -39,11 +34,7 @@ public class NavigationRepairScript : MonoBehaviour
         startRepair.onClick.AddListener(StartButton);
         exit.onClick.AddListener(Exit);
         back.onClick.AddListener(Back);
-        previousStep.onClick.AddListener(() => Previous());
-        nextStep.onClick.AddListener(() => Next());
         UpdateButtonStates(0);
-        previousStep.interactable = false;
-        //CenterOnButton(stepButtons[0].gameObject);
     }
 
     public void StartButton()
@@ -51,7 +42,6 @@ public class NavigationRepairScript : MonoBehaviour
         infoScreen.SetActive(false);
         stepLayout.SetActive(true);
         steps[0].SetActive(true);
-        // stepArrows[0].SetActive(true);
     }
 
     public void Exit()
@@ -69,50 +59,6 @@ public class NavigationRepairScript : MonoBehaviour
         RepairMenu.SetActive(true);   
         infoScreen.SetActive(false);
         this.gameObject.SetActive(false);
-    }
-
-    public void Previous()
-    {
-        if (stepAmount <= -1) 
-        {
-            previousStep.interactable = false;
-            return;
-        }
-        if (stepAmount - 1 == 0) 
-        {
-            previousStep.interactable = false;
-        }
-        if (stepAmount > 0) 
-        {
-            stepAmount -= 1;
-        }
-        OnStepSelected(stepAmount);
-        if (!nextStep.interactable) 
-        {
-            nextStep.interactable = true;
-        }
-    }
-
-    public void Next()
-    {
-        if (stepAmount >= steps.Count - 1)
-        {
-            nextStep.interactable = false;
-            return;
-        }
-
-        Debug.Log($"Before incrementing, stepAmount is: {stepAmount}");
-        stepAmount++;
-        Debug.Log($"After incrementing, stepAmount is: {stepAmount}");
-
-        OnStepSelected(stepAmount);
-
-        previousStep.interactable = true;
-
-        if (stepAmount == steps.Count - 1)
-        {
-            nextStep.interactable = false;
-        }
     }
 
     public void CreateButtons()
@@ -135,31 +81,21 @@ public class NavigationRepairScript : MonoBehaviour
 
     public void OnStepSelected(int stepIndex)
     {
-        if (steps[stepAmount] != null)
+        if (steps[stepIndex] != null)
         {
-            RepairStepScript currentStepScript = steps[stepAmount].GetComponent<RepairStepScript>();
+            RepairStepScript currentStepScript = steps[stepIndex].GetComponent<RepairStepScript>();
             if (currentStepScript != null)
             {
                 currentStepScript.End();
             }
         }
 
-
         UpdateButtonStates(stepIndex);
-        //CenterOnButton(stepButtons[stepIndex].gameObject);
         foreach (var step in steps)
         {
             step.SetActive(false);
         }
-        // foreach (var arrow in stepArrows)
-        // {
-        //     arrow.SetActive(false);
-        // }
         steps[stepIndex].SetActive(true);
-
-        // stepArrows[stepIndex].SetActive(true);
-        stepAmount = stepIndex;
-
 
         RepairStepScript newStepScript = steps[stepIndex].GetComponent<RepairStepScript>();
         if (newStepScript != null)
@@ -174,17 +110,5 @@ public class NavigationRepairScript : MonoBehaviour
         {
             stepButtons[i].interactable = (i != currentStepIndex);
         }
-    }
-
-    public void CenterOnButton(GameObject button)
-    {
-        Canvas.ForceUpdateCanvases();
-
-        Vector2 viewportLocalPosition = scrollRect.viewport.localPosition;
-        Vector2 buttonLocalPosition = button.transform.localPosition;
-
-        float difference = viewportLocalPosition.x - buttonLocalPosition.x;
-
-        contentPanel.localPosition = new Vector2(contentPanel.localPosition.x + difference, contentPanel.localPosition.y);
     }
 }
