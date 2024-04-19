@@ -14462,7 +14462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &971228605
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30196,11 +30196,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InsertFilamentInfo
-      objectReference: {fileID: 0}
-    - target: {fileID: 4945824692129700591, guid: c2ae79267380d19459e2574cffc3f384,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

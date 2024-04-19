@@ -24,6 +24,7 @@ public class NavigationRepairScript : MonoBehaviour
 
     private List<Button> stepButtons = new List<Button>();
     private RectTransform contentPanel;
+    private int stepAmount = 0;
 
 
     void Start()
@@ -34,7 +35,6 @@ public class NavigationRepairScript : MonoBehaviour
         startRepair.onClick.AddListener(StartButton);
         exit.onClick.AddListener(Exit);
         back.onClick.AddListener(Back);
-        UpdateButtonStates(0);
     }
 
     public void StartButton()
@@ -42,6 +42,8 @@ public class NavigationRepairScript : MonoBehaviour
         infoScreen.SetActive(false);
         stepLayout.SetActive(true);
         steps[0].SetActive(true);
+        OnStepSelected(0);
+      
     }
 
     public void Exit()
@@ -51,6 +53,11 @@ public class NavigationRepairScript : MonoBehaviour
         foreach (var step in steps)
         {
             step.SetActive(false);
+        }
+        RepairStepScript currentStepScript = steps[stepAmount].GetComponent<RepairStepScript>();
+        if (currentStepScript != null)
+        {
+            currentStepScript.End();
         }
     }
 
@@ -81,9 +88,9 @@ public class NavigationRepairScript : MonoBehaviour
 
     public void OnStepSelected(int stepIndex)
     {
-        if (steps[stepIndex] != null)
+        if (stepIndex - 1 >= 0)
         {
-            RepairStepScript currentStepScript = steps[stepIndex].GetComponent<RepairStepScript>();
+            RepairStepScript currentStepScript = steps[stepIndex - 1].GetComponent<RepairStepScript>();
             if (currentStepScript != null)
             {
                 currentStepScript.End();
@@ -102,6 +109,7 @@ public class NavigationRepairScript : MonoBehaviour
         {
             newStepScript.Start();
         }
+        stepAmount = stepIndex;
     }
 
     public void UpdateButtonStates(int currentStepIndex)

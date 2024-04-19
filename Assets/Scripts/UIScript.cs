@@ -64,9 +64,10 @@ public class UIScript : MonoBehaviour
 
     public void EnableSettings()
     {
-        mainMenu.SetActive(false);
+    /*    mainMenu.SetActive(false);
         repairMenu.SetActive(false);
         settingsMenu.SetActive(true);
-        repairsScreen.SetActive(false);
+        repairsScreen.SetActive(false);*/
+        Quit();
     }
 }
