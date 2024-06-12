@@ -68,6 +68,6 @@ public class UIScript : MonoBehaviour
         repairMenu.SetActive(false);
         settingsMenu.SetActive(true);
         repairsScreen.SetActive(false);*/
-        Quit();
+        //Quit();
     }
 }
